@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гарфилд и Новогодние Загадки</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a3a, #0c1825);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%23000" width="100" height="100"/><circle fill="%231a2a3a" cx="50" cy="50" r="2"/></svg>');
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        .snowflake {
+            position: absolute;
+            color: white;
+            font-size: 1.5em;
+            opacity: 0.8;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: rgba(30, 40, 50, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            border: 3px solid #2a4b6a;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ff6b00, #ffa500, #ff6b00);
+            z-index: -1;
+            border-radius: 25px;
+            opacity: 0.2;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px dashed #ffa500;
+        }
+        
+        h1 {
+            color: #ffa500;
+            font-size: 2.8rem;
+            text-shadow: 3px 3px 0 #8b4513;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            color: #aaddff;
+            font-size: 1.3rem;
+            font-style: italic;
+        }
+        
+        .garfield-section {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: rgba(255, 165, 0, 0.1);
+            border-radius: 15px;
+            border: 2px solid #ffa500;
+        }
+        
+        .garfield-img {
+            width: 300px;
+            max-width: 100%;
+            border-radius: 15px;
+            border: 5px solid #8b4513;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .garfield-img:hover {
+            transform: scale(1.03);
+        }
+        
+        .garfield-message {
+            font-size: 1.6rem;
+            color: #ffa500;
+            font-weight: bold;
+            margin-top: 15px;
+            text-shadow: 1px 1px 2px #000;
+        }
+        
+        .section {
+            display: none;
+            animation: fadeIn 0.8s;
+        }
+        
+        .active {
+            display: block;
+        }
+        
+        .btn {
+            background: linear-gradient(to bottom, #ffa500, #ff8c00);
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.4);
+            margin: 10px;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 140, 0, 0.6);
+            background: linear-gradient(to bottom, #ffb732, #ff9a00);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .quiz-question {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 5px solid #ffa500;
+        }
+        
+        .quiz-question h3 {
+            color: #aaddff;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        
+        .option {
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background-color: rgba(255, 165, 0, 0.3);
+            transform: translateX(5px);
+        }
+        
+        .option.selected {
+            background-color: rgba(255, 165, 0, 0.5);
+            border: 2px solid #ffa500;
+        }
+        
+        .option input {
+            margin-right: 12px;
+            transform: scale(1.3);
+        }
+        
+        .sudoku-section h2 {
+            text-align: center;
+            color: #ffa500;
+            margin-bottom: 25px;
+        }
+        
+        .sudoku-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .sudoku-grid-4x4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 2px;
+            background-color: #2a4b6a;
+            padding: 8px;
+            border-radius: 8px;
+            max-width: 350px;
+            width: 100%;
+            margin-bottom: 25px;
+            border: 4px solid #ffa500;
+        }
+        
+        .sudoku-cell-4x4 {
+            aspect-ratio: 1;
+            background-color: #fff;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            border: 1px solid #aaa;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .sudoku-cell-4x4:nth-child(2n) {
+            border-right: 3px solid #2a4b6a;
+        }
+        
+        .sudoku-cell-4x4:nth-child(4n) {
+            border-right: 1px solid #aaa;
+        }
+        
+        .sudoku-cell-4x4.selected {
+            background-color: #ffe0b2;
+        }
+        
+        .sudoku-cell-4x4.fixed {
+            background-color: #f0f0f0;
+            color: #000;
+            cursor: default;
+        }
+        
+        .sudoku-cell-4x4.error {
+            background-color: #ffcccc;
+        }
+        
+        .sudoku-controls-4x4 {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            max-width: 350px;
+        }
+        
+        .number-btn-4x4 {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(to bottom, #4a90e2, #2a6bc6);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .number-btn-4x4:hover {
+            background: linear-gradient(to bottom, #5aa0f2, #3a7bd6);
+            transform: scale(1.05);
+        }
+        
+        .number-btn-4x4.clear {
+            background: linear-gradient(to bottom, #ff6b6b, #ff4757);
+        }
+        
+        .sudoku-instructions {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #aaddff;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .congrats-section {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(255, 215, 0, 0.1);
+            border-radius: 15px;
+            border: 3px solid #ffd700;
+        }
+        
+        .congrats-section h2 {
+            color: #ffd700;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #8b4513;
+        }
+        
+        .congrats-message {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+        
+        .address {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 1.3rem;
+            color: #ffd700;
+            margin: 20px auto;
+            max-width: 600px;
+            border: 2px dashed #ffa500;
+        }
+        
+        .qr-container {
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+        
+        .qr-img {
+            width: 250px;
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+        }
+        
+        .progress-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 60%;
+            width: 80%;
+            height: 5px;
+            background-color: #2a4b6a;
+            z-index: 1;
+        }
+        
+        .progress-step.active:not(:last-child)::after {
+            background-color: #ffa500;
+        }
+        
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #2a4b6a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            z-index: 2;
+            border: 3px solid transparent;
+        }
+        
+        .progress-step.active .step-circle {
+            background-color: #ffa500;
+            border-color: #ff8c00;
+            color: white;
+        }
+        
+        .step-text {
+            font-size: 0.9rem;
+            text-align: center;
+            color: #aaddff;
+        }
+        
+        .progress-step.active .step-text {
+            color: #ffa500;
+            font-weight: bold;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes snowFall {
+            0% { transform: translateY(-100px) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .garfield-img {
+                width: 250px;
+            }
+            
+            .sudoku-grid-4x4 {
+                max-width: 300px;
+            }
+            
+            .sudoku-cell-4x4 {
+                font-size: 1.5rem;
+            }
+            
+            .number-btn-4x4 {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .qr-container {
+                padding: 15px;
+            }
+            
+            .qr-img {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-cat"></i> Гарфилд и Новогодние Загадки</h1>
+            <p class="subtitle">Пройди испытания и получи подарок от самого Гарфилда!</p>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-step active">
+                <div class="step-circle">1</div>
+                <div class="step-text">Приветствие</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">2</div>
+                <div class="step-text">Новогодний тест</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">3</div>
+                <div class="step-text">Новогоднее судоку</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">4</div>
+                <div class="step-text">Подарок</div>
+            </div>
+        </div>
+        
+        <div class="garfield-section">
+            <img src="images/gar.jpg" class="garfield-img" id="garfield-img">
+            <p class="garfield-message" id="garfield-message">Привет! Я Гарфилд. Диана, готова к новогодним приключениям?</p>
+        </div>
+        
+        <div id="welcome-section" class="section active">
+            <div class="quiz-question">
+                <h3>Добро пожаловать в новогоднее приключение с мной! Гарфилдом!</h3>
+                <p>Впереди вас ждут интересные испытания: тест на знание Нового года и новогоднее судоку 4×4. После успешного прохождения всех заданий Гарфилд выдаст вам адрес, где можно забрать подарок, и покажет QR-код.</p>
+                <p>Удачи в прохождении!</p>
+            </div>
+            
+            <div class="btn-container">
+                <button class="btn" id="start-btn">
+                    <i class="fas fa-play"></i> Начать новогоднее приключение
+                </button>
+            </div>
+        </div>
+        
+        <div id="quiz-section" class="section">
+            <h2 style="text-align: center; color: #ffa500; margin-bottom: 25px;">Новогодний тест</h2>
+            
+            <div class="quiz-question">
+                <h3>1. В какой стране на Новый год принято дарить друг другу ветки бамбука?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q1" value="0"> Япония
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="1"> Китай
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="0"> Индия
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="0"> Черемхово
+                    </label>
+                </div>
+            </div>
+            
+            <div class="quiz-question">
+                <h3>2. Как зовут внучку Деда Мороза?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q2" value="0"> Метелица
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="0"> Зимушка
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="1"> Снегурочка
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="0"> Снеговий
+                    </label>
+                </div>
+            </div>
+            
+            <div class="quiz-question">
+                <h3>3. В какой стране принято есть 12 виноградин под бой курантов в новогоднюю ночь?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q3" value="0"> Италия
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="1"> Испания
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="0"> Франция
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="0"> Новоленино
+                    </label>
+                </div>
+            </div>
+            
+            <div class="btn-container">
+                <button class="btn" id="back-to-welcome-btn">
+                    <i class="fas fa-arrow-left"></i> Назад
+                </button>
+                <button class="btn" id="submit-quiz-btn">
+                    Проверить ответы и перейти к судоку <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div id="sudoku-section" class="section">
+            <h2>Новогоднее судоку 4×4</h2>
+            
+            <div class="sudoku-instructions">
+                <p>Заполните пустые клетки числами от 1 до 4 так, чтобы:</p>
+                <p>• В каждой строке были все цифры от 1 до 4</p>
+                <p>• В каждом столбце были все цифры от 1 до 4</p>
+                <p>• В каждом квадрате 2×2 (выделенном более толстой границей) были все цифры от 1 до 4</p>
+            </div>
+            
+            <div class="sudoku-container">
+                <div class="sudoku-grid-4x4" id="sudoku-grid-4x4"></div>
+                
+                <div class="sudoku-controls-4x4">
+                    <button class="number-btn-4x4" data-number="1">1</button>
+                    <button class="number-btn-4x4" data-number="2">2</button>
+                    <button class="number-btn-4x4" data-number="3">3</button>
+                    <button class="number-btn-4x4" data-number="4">4</button>
+                    <button class="number-btn-4x4 clear" data-number="0">X</button>
+                </div>
+            </div>
+            
+            <div class="btn-container">
+                <button class="btn" id="back-to-quiz-btn">
+                    <i class="fas fa-arrow-left"></i> Назад к тесту
+                </button>
+                <button class="btn" id="check-sudoku-btn">
+                    Проверить судоку и получить подарок <i class="fas fa-gift"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div id="congrats-section" class="section">
+            <div class="congrats-section">
+                <h2><i class="fas fa-star"></i> Поздравляю! <i class="fas fa-star"></i></h2>
+                
+                <p class="congrats-message" id="final-message">
+                    Мур-мур-мур! Отличная работа! Ты успешно прошла все новогодние испытания!<br>
+                    Ты заслужила праздничный подарок от самого Гарфилда!
+                </p>
+                
+                <div class="address" id="address-text">
+                    Забери свой подарок по адресу: Розы Люксембург (ближайший Вайлдбериз)
+                </div>
+                
+                <p class="congrats-message">
+                    И вот QR-код ниже, не забывай, подарок можно только положить под елку!!!:
+                </p>
+                
+                <div class="qr-container">
+                    <img src="images/qr.jpg" alt="QR код для подарка" class="qr-img" id="qr-img">
+                </div>
+                
+                <div class="btn-container">
+                    <button class="btn" id="restart-btn">
+                        <i class="fas fa-redo"></i> Начать заново
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Генерация снежинок
+        function createSnowflakes() {
+            const snowflakesContainer = document.createElement('div');
+            snowflakesContainer.className = 'snowflakes';
+            document.body.appendChild(snowflakesContainer);
+            
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = '❄';
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.fontSize = (Math.random() * 1.5 + 0.8) + 'em';
+                snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+                snowflake.style.animation = `snowFall ${Math.random() * 10 + 10}s linear infinite`;
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+        
+        // Инициализация снежинок
+        createSnowflakes();
+        
+        // Элементы DOM
+        const sections = document.querySelectorAll('.section');
+        const progressSteps = document.querySelectorAll('.progress-step');
+        const garfieldMessage = document.getElementById('garfield-message');
+        const garfieldImage = document.getElementById('garfield-img');
+        const startBtn = document.getElementById('start-btn');
+        const submitQuizBtn = document.getElementById('submit-quiz-btn');
+        const checkSudokuBtn = document.getElementById('check-sudoku-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const backToWelcomeBtn = document.getElementById('back-to-welcome-btn');
+        const backToQuizBtn = document.getElementById('back-to-quiz-btn');
+        const finalMessage = document.getElementById('final-message');
+        const addressText = document.getElementById('address-text');
+        const qrImage = document.getElementById('qr-img');
+        
+        // Переменные состояния
+        let currentSection = 'welcome-section';
+        let quizScore = 0;
+        let selectedCell = null;
+        
+        // Сообщения Гарфилда для разных этапов
+        const garfieldMessages = {
+            welcome: "Привет! Я Гарфилд. Готов к новогодним приключениям?",
+            quiz: "Отлично! Теперь проверь свои знания о Новом годе. Выбирай правильные ответы!",
+            quizSuccess: "Молодец! Ты хорошо знаешь новогодние традиции!",
+            quizFail: "Хм... могло быть и лучше. Но у тебя есть шанс наверстать в судоку!",
+            sudoku: "Теперь реши новогоднее судоку 4×4. Это проще, чем 9×9, но все равно интересно!",
+            sudokuSuccess: "Великолепно! Ты решил судоку 4×4! Ты определенно заслужил подарок!",
+            sudokuFail: "Ой, кажется, в судоку есть ошибки. Попробуй еще раз!",
+            congrats: "Мур-мур-мур! Ты прошел все испытания! Забирай свой подарок по указанному адресу!"
+        };
+        
+        // Инициализация викторины
+        function initQuiz() {
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                    
+                    // Снимаем выделение со всех вариантов
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    // Выделяем выбранный вариант
+                    this.classList.add('selected');
+                });
+            });
+        }
+        
+        // Проверка ответов викторины
+        function checkQuiz() {
+            let score = 0;
+            
+            // Проверяем первый вопрос
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            if (q1 && parseInt(q1.value) === 1) score++;
+            
+            // Проверяем второй вопрос
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            if (q2 && parseInt(q2.value) === 1) score++;
+            
+            // Проверяем третий вопрос
+            const q3 = document.querySelector('input[name="q3"]:checked');
+            if (q3 && parseInt(q3.value) === 1) score++;
+            
+            quizScore = score;
+            
+            if (score >= 2) {
+                garfieldMessage.textContent = garfieldMessages.quizSuccess;
+            } else {
+                garfieldMessage.textContent = garfieldMessages.quizFail;
+            }
+            
+            return score >= 2; // Возвращаем true если прошел (2 или 3 правильных ответа)
+        }
+        
+        // Инициализация судоку 4x4
+        function initSudoku4x4() {
+            const sudokuGrid = document.getElementById('sudoku-grid-4x4');
+            sudokuGrid.innerHTML = '';
+            
+            // Начальное состояние судоку 4x4 (0 означает пустую клетку)
+            const initialBoard = [
+                [1, 0, 0, 0],
+                [0, 0, 3, 0],
+                [0, 4, 0, 0],
+                [0, 0, 0, 2]
+            ];
+            
+            // Создаем клетки судоку 4x4
+            for (let row = 0; row < 4; row++) {
+                for (let col = 0; col < 4; col++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'sudoku-cell-4x4';
+                    cell.dataset.row = row;
+                    cell.dataset.col = col;
+                    
+                    // Добавляем границы для квадратов 2x2
+                    if (col === 1) {
+                        cell.style.borderRight = '3px solid #2a4b6a';
+                    }
+                    if (row === 1) {
+                        cell.style.borderBottom = '3px solid #2a4b6a';
+                    }
+                    
+                    if (initialBoard[row][col] !== 0) {
+                        cell.textContent = initialBoard[row][col];
+                        cell.classList.add('fixed');
+                    } else {
+                        cell.textContent = '';
+                        cell.addEventListener('click', selectCell4x4);
+                    }
+                    
+                    sudokuGrid.appendChild(cell);
+                }
+            }
+            
+            // Добавляем обработчики для кнопок с цифрами
+            const numberButtons = document.querySelectorAll('.number-btn-4x4');
+            numberButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const number = parseInt(this.dataset.number);
+                    if (selectedCell) {
+                        if (number === 0) {
+                            selectedCell.textContent = '';
+                            selectedCell.classList.remove('error');
+                        } else if (!selectedCell.classList.contains('fixed')) {
+                            selectedCell.textContent = number;
+                            selectedCell.classList.remove('error');
+                        }
+                    }
+                });
+            });
+            
+            selectedCell = null;
+        }
+        
+        // Выбор клетки судоку 4x4
+        function selectCell4x4() {
+            if (this.classList.contains('fixed')) return;
+            
+            // Снимаем выделение со всех клеток
+            document.querySelectorAll('.sudoku-cell-4x4').forEach(cell => {
+                cell.classList.remove('selected');
+            });
+            
+            // Выделяем выбранную клетку
+            this.classList.add('selected');
+            selectedCell = this;
+        }
+        
+        // Проверка решения судоку 4x4
+        function checkSudoku4x4() {
+            const cells = document.querySelectorAll('.sudoku-cell-4x4');
+            let board = [];
+            let currentRow = [];
+            let hasErrors = false;
+            
+            // Собираем текущее состояние доски
+            cells.forEach((cell, index) => {
+                const value = cell.textContent === '' ? 0 : parseInt(cell.textContent);
+                currentRow.push(value);
+                
+                if ((index + 1) % 4 === 0) {
+                    board.push([...currentRow]);
+                    currentRow = [];
+                }
+            });
+            
+            // Проверяем строки (должны быть цифры 1-4)
+            for (let row = 0; row < 4; row++) {
+                const seen = new Set();
+                for (let col = 0; col < 4; col++) {
+                    const value = board[row][col];
+                    if (value !== 0) {
+                        if (value < 1 || value > 4) {
+                            markError4x4(row, col);
+                            hasErrors = true;
+                        } else if (seen.has(value)) {
+                            markError4x4(row, col);
+                            hasErrors = true;
+                        }
+                        seen.add(value);
+                    }
+                }
+            }
+            
+            // Проверяем столбцы
+            for (let col = 0; col < 4; col++) {
+                const seen = new Set();
+                for (let row = 0; row < 4; row++) {
+                    const value = board[row][col];
+                    if (value !== 0) {
+                        if (seen.has(value)) {
+                            markError4x4(row, col);
+                            hasErrors = true;
+                        }
+                        seen.add(value);
+                    }
+                }
+            }
+            
+            // Проверяем квадраты 2x2
+            for (let squareRow = 0; squareRow < 2; squareRow++) {
+                for (let squareCol = 0; squareCol < 2; squareCol++) {
+                    const seen = new Set();
+                    for (let row = squareRow * 2; row < squareRow * 2 + 2; row++) {
+                        for (let col = squareCol * 2; col < squareCol * 2 + 2; col++) {
+                            const value = board[row][col];
+                            if (value !== 0) {
+                                if (seen.has(value)) {
+                                    markError4x4(row, col);
+                                    hasErrors = true;
+                                }
+                                seen.add(value);
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // Проверяем, все ли клетки заполнены
+            let allFilled = true;
+            cells.forEach(cell => {
+                if (cell.textContent === '' && !cell.classList.contains('fixed')) {
+                    allFilled = false;
+                }
+            });
+            
+            if (!allFilled) {
+                garfieldMessage.textContent = "Нужно заполнить все пустые клетки!";
+                return false;
+            }
+            
+            if (hasErrors) {
+                garfieldMessage.textContent = garfieldMessages.sudokuFail;
+                return false;
+            }
+            
+            garfieldMessage.textContent = garfieldMessages.sudokuSuccess;
+            return true;
+        }
+        
+        // Помечаем клетку с ошибкой в судоку 4x4
+        function markError4x4(row, col) {
+            const cell = document.querySelector(`.sudoku-cell-4x4[data-row="${row}"][data-col="${col}"]`);
+            if (cell && !cell.classList.contains('fixed')) {
+                cell.classList.add('error');
+            }
+        }
+        
+        // Переход между разделами
+        function showSection(sectionId) {
+            // Скрываем все разделы
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Показываем нужный раздел
+            document.getElementById(sectionId).classList.add('active');
+            currentSection = sectionId;
+            
+            // Обновляем прогресс
+            updateProgress(sectionId);
+            
+            // Обновляем сообщение Гарфилда
+            updateGarfieldMessage(sectionId);
+        }
+        
+        // Обновление индикатора прогресса
+        function updateProgress(sectionId) {
+            let activeIndex = 0;
+            
+            switch(sectionId) {
+                case 'welcome-section':
+                    activeIndex = 0;
+                    break;
+                case 'quiz-section':
+                    activeIndex = 1;
+                    break;
+                case 'sudoku-section':
+                    activeIndex = 2;
+                    break;
+                case 'congrats-section':
+                    activeIndex = 3;
+                    break;
+            }
+            
+            progressSteps.forEach((step, index) => {
+                if (index <= activeIndex) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+        }
+        
+        // Обновление сообщения Гарфилда
+        function updateGarfieldMessage(sectionId) {
+            switch(sectionId) {
+                case 'welcome-section':
+                    garfieldMessage.textContent = garfieldMessages.welcome;
+                    break;
+                case 'quiz-section':
+                    garfieldMessage.textContent = garfieldMessages.quiz;
+                    break;
+                case 'sudoku-section':
+                    garfieldMessage.textContent = garfieldMessages.sudoku;
+                    break;
+                case 'congrats-section':
+                    garfieldMessage.textContent = garfieldMessages.congrats;
+                    break;
+            }
+        }
+        
+        // Обработчики событий
+        startBtn.addEventListener('click', () => {
+            showSection('quiz-section');
+            initQuiz();
+        });
+        
+        backToWelcomeBtn.addEventListener('click', () => {
+            showSection('welcome-section');
+        });
+        
+        backToQuizBtn.addEventListener('click', () => {
+            showSection('quiz-section');
+        });
+        
+        submitQuizBtn.addEventListener('click', () => {
+            const quizPassed = checkQuiz();
+            if (quizPassed) {
+                showSection('sudoku-section');
+                initSudoku4x4();
+            } else {
+                alert(`Вы ответили правильно на ${quizScore} из 3 вопросов. Попробуйте еще раз!`);
+            }
+        });
+        
+        checkSudokuBtn.addEventListener('click', () => {
+            const sudokuPassed = checkSudoku4x4();
+            if (sudokuPassed) {
+                // Формируем финальное сообщение
+                finalMessage.innerHTML = `
+                    Мур-мур-мур! Отличная работа! Ты успешно прошёл все новогодние испытания!<br>
+                    Ты заслужил праздничный подарок от самого Гарфилда!<br>
+                    <span style="color: #ffa500; font-size: 1.1em;">Твой результат в тесте: ${quizScore} из 3</span>
+                `;
+                
+                // Показываем раздел с поздравлением
+                showSection('congrats-section');
+            }
+        });
+        
+        restartBtn.addEventListener('click', () => {
+            // Сбрасываем состояние
+            quizScore = 0;
+            selectedCell = null;
+            
+            // Сбрасываем викторину
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+            });
+            
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Возвращаемся к началу
+            showSection('welcome-section');
+            garfieldMessage.textContent = garfieldMessages.welcome;
+        });
+        
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            // Устанавливаем пути к изображениям согласно вашим указаниям
+            garfieldImage.src = 'images/gar.jpg';
+            qrImage.src = 'images/qr.jpg';
+            
+            // Добавляем обработчики ошибок загрузки изображений
+            garfieldImage.onerror = function() {
+                console.log('Не удалось загрузить изображение Гарфилда по пути: images/gar.jpg');
+                // В случае ошибки можно показать альтернативное изображение
+                this.src = 'https://i.imgur.com/Ls7cC9p.jpeg';
+                this.alt = 'Гарфилд (альтернативное изображение)';
+            };
+            
+            qrImage.onerror = function() {
+                console.log('Не удалось загрузить QR-код по пути: imagrs/qr.jpg');
+                // В случае ошибки можно показать альтернативное изображение
+                this.src = 'https://i.imgur.com/QRd9W5p.jpeg';
+                this.alt = 'QR-код (альтернативное изображение)';
+            };
+        });
+    </script>
+</body>
+</html>
