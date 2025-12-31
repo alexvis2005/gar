@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поздравление от Гарфилда!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a3a 0%, #0d1520 100%);
+            color: #f0f8ff;
+            min-height: 100vh;
+            padding: 15px;
+            overflow-x: hidden;
+            touch-action: manipulation;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: linear-gradient(90deg, #d35400 0%, #e67e22 100%);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .header p {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            opacity: 0.95;
+        }
+        
+        .snowflakes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .snowflake {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+        
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px;
+            gap: 30px;
+        }
+        
+        .character-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            width: 100%;
+        }
+        
+        .garfield-container {
+            width: clamp(150px, 35vw, 250px);
+            height: clamp(150px, 35vw, 250px);
+            border-radius: 50%;
+            overflow: hidden;
+            border: 10px solid #e67e22;
+            box-shadow: 0 0 30px rgba(230, 126, 34, 0.8);
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            animation: bounce 3s infinite ease-in-out;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(5deg); }
+            75% { transform: translateY(-15px) rotate(-5deg); }
+        }
+        
+        .garfield-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .speech-bubble {
+            background-color: white;
+            color: #333;
+            padding: clamp(20px, 4vw, 30px);
+            border-radius: 25px;
+            max-width: 700px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            line-height: 1.6;
+            text-align: center;
+            width: 100%;
+            border: 3px solid #f1c40f;
+        }
+        
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -25px;
+            margin-left: -15px;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 25px solid white;
+        }
+        
+        .congratulations-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            text-align: center;
+        }
+        
+        .congrats-title {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            background: linear-gradient(90deg, #ff0000, #ff9900, #ffff00, #00ff00, #00ffff, #0000ff, #9900ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: bold;
+            animation: rainbow 5s infinite linear;
+            margin-bottom: 10px;
+        }
+        
+        @keyframes rainbow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        .results-summary {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 700px;
+            margin: 10px 0;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .result-item {
+            background: rgba(255, 255, 255, 0.07);
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .result-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .result-icon {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .result-label {
+            font-size: 1rem;
+            color: #bdc3c7;
+        }
+        
+        .result-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #f1c40f;
+        }
+        
+        .tree-section {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            margin: 30px auto;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid #27ae60;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+        
+        .tree-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #1a3a2a 0%, #0d2015 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .tree {
+            font-size: 15rem;
+            color: #27ae60;
+            text-shadow: 0 0 20px rgba(39, 174, 96, 0.5);
+            position: relative;
+            z-index: 2;
+            animation: treeGlow 3s infinite alternate;
+        }
+        
+        @keyframes treeGlow {
+            0% { text-shadow: 0 0 20px rgba(39, 174, 96, 0.5); }
+            100% { text-shadow: 0 0 30px rgba(39, 174, 96, 0.8), 0 0 40px rgba(39, 174, 96, 0.6); }
+        }
+        
+        .gifts-under-tree {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 3;
+        }
+        
+        .gift-box {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transform-origin: bottom;
+            animation: giftFloat 4s infinite ease-in-out;
+        }
+        
+        .gift-box:nth-child(1) { 
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            animation-delay: 0s;
+        }
+        .gift-box:nth-child(2) { 
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            animation-delay: 0.5s;
+        }
+        .gift-box:nth-child(3) { 
+            background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+            animation-delay: 1s;
+        }
+        .gift-box:nth-child(4) { 
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            animation-delay: 1.5s;
+        }
+        
+        @keyframes giftFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .gift-box:hover {
+            transform: scale(1.2) rotate(15deg);
+            z-index: 10;
+        }
+        
+        .gift-box.opened {
+            animation: openGift 0.5s forwards;
+        }
+        
+        @keyframes openGift {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { 
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+        
+        .gift-content {
+            position: absolute;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #f1c40f;
+            animation: contentFloat 2s forwards;
+            pointer-events: none;
+            z-index: 20;
+        }
+        
+        @keyframes contentFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(1.5);
+            }
+        }
+        
+        .tree-lights {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .light {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            animation: lightTwinkle 1.5s infinite alternate;
+        }
+        
+        @keyframes lightTwinkle {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .final-message {
+            text-align: center;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border-left: 5px solid #e67e22;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            width: 100%;
+        }
+        
+        button {
+            padding: 18px 35px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            min-width: 200px;
+            touch-action: manipulation;
+        }
+        
+        .btn-open-gifts {
+            background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            font-size: 1.4rem;
+            padding: 20px 40px;
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+        }
+        
+        .btn-restart-all {
+            background: linear-gradient(90deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+        
+        .btn-open-gifts:hover, .btn-restart-all:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-open-gifts:active, .btn-restart-all:active {
+            transform: scale(0.98);
+        }
+        
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            opacity: 0;
+            animation: confettiFall 5s linear forwards;
+        }
+        
+        @keyframes confettiFall {
+            0% {
+                opacity: 1;
+                transform: translateY(-100px) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 1rem;
+            opacity: 0.7;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px 15px;
+                gap: 20px;
+            }
+            
+            .tree-section {
+                height: 300px;
+            }
+            
+            .tree {
+                font-size: 10rem;
+            }
+            
+            .gift-box {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8rem;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            button {
+                min-width: 150px;
+                padding: 15px 25px;
+            }
+            
+            .btn-open-gifts {
+                font-size: 1.2rem;
+                padding: 18px 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .tree-section {
+                height: 250px;
+            }
+            
+            .tree {
+                font-size: 8rem;
+            }
+            
+            .gift-box {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            
+            .speech-bubble {
+                padding: 15px;
+                font-size: 1.1rem;
+            }
+            
+            .congrats-title {
+                font-size: 1.8rem;
+            }
+        }
+        
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            color: #f1c40f;
+            font-size: 1.5rem;
+            animation: starTwinkle 2s infinite alternate;
+        }
+        
+        @keyframes starTwinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-star"></i> ПОЗДРАВЛЕНИЕ! <i class="fas fa-gift"></i></h1>
+            <p>Гарфилд поздравляет тебя, Дианочка!</p>
+            
+            <div class="snowflakes" id="snowflakes"></div>
+        </div>
+        
+        <div class="content">
+            <div class="character-section">
+                <div class="garfield-container">
+                    <img src="images/icon.png" alt="Гарфилд" id="garfieldImage">
+                </div>
+                
+                <div class="speech-bubble" id="welcomeMessage">
+                    Ура! Дианочка, ты прошла все испытания! Ты была такой внимательной и ловкой! Теперь ты заслужила все новогодние подарки под ёлкой!
+                </div>
+            </div>
+            
+            <div class="congratulations-section">
+                <h2 class="congrats-title">🎉 ДИАНОЧКА - ПОБЕДИТЕЛЬ! 🎉</h2>
+                
+                <div class="results-summary">
+                    <h3 style="color: #f1c40f; margin-bottom: 20px; font-size: 1.5rem;">
+                        <i class="fas fa-trophy"></i> ТВОИ РЕЗУЛЬТАТЫ:
+                    </h3>
+                    
+                    <div class="results-grid" id="resultsGrid">
+                        <!-- Результаты будут загружены сюда -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tree-section">
+                <div class="tree-image">
+                    <div class="tree">🎄</div>
+                    
+                    <div class="gifts-under-tree" id="giftsUnderTree">
+                        <div class="gift-box" data-gift="1">🎁</div>
+                        <div class="gift-box" data-gift="2">🎁</div>
+                        <div class="gift-box" data-gift="3">🎁</div>
+                        <div class="gift-box" data-gift="4">🎁</div>
+                    </div>
+                    
+                    <div class="tree-lights" id="treeLights"></div>
+                    <div class="stars" id="stars"></div>
+                </div>
+            </div>
+            
+            <div class="final-message" id="finalMessage">
+                <p>Дианочка, ты прошла все новогодние испытания! Теперь можешь открыть подарки, которые ты заслужила!</p>
+                <p style="margin-top: 15px; color: #f1c40f; font-weight: bold;">
+                    <i class="fas fa-cat"></i> Гарфилд гордится тобой и разрешает открыть все подарки!
+                </p>
+            </div>
+            
+            <div class="controls">
+                <button class="btn-open-gifts" id="openGiftsBtn">
+                    <i class="fas fa-gift"></i> ОТКРЫТЬ ПОДАРКИ!
+                </button>
+                <button class="btn-restart-all" id="restartAllBtn">
+                    <i class="fas fa-redo"></i> Начать всё сначала
+                </button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Новогоднее приключение с Гарфилдом © 2026</p>
+            <p>Дианочка, спасибо, что прошла все испытания! С Новым Годом! 🎄</p>
+        </div>
+    </div>
+    
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <script>
+        // Элементы DOM
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const resultsGrid = document.getElementById('resultsGrid');
+        const giftsUnderTree = document.getElementById('giftsUnderTree');
+        const treeLights = document.getElementById('treeLights');
+        const stars = document.getElementById('stars');
+        const openGiftsBtn = document.getElementById('openGiftsBtn');
+        const restartAllBtn = document.getElementById('restartAllBtn');
+        const finalMessage = document.getElementById('finalMessage');
+        const confettiContainer = document.getElementById('confettiContainer');
+        const snowflakesContainer = document.getElementById('snowflakes');
+        
+        // Результаты из localStorage
+        let quizScore = 0;
+        let quizTotal = 10;
+        let attentionScore = 0;
+        let attentionTotal = 5;
+        let giftScore = 0;
+        let giftTarget = 50;
+        let giftTime = 0;
+        
+        // Загрузка результатов
+        function loadAllResults() {
+            // Загружаем результаты из всех тестов
+            quizScore = parseInt(localStorage.getItem('quizScore')) || 0;
+            quizTotal = parseInt(localStorage.getItem('quizTotal')) || 10;
+            attentionScore = parseInt(localStorage.getItem('attentionTestScore')) || 0;
+            attentionTotal = parseInt(localStorage.getItem('attentionTestTotal')) || 5;
+            giftScore = parseInt(localStorage.getItem('giftGameScore')) || 0;
+            giftTarget = parseInt(localStorage.getItem('giftGameTarget')) || 50;
+            giftTime = parseInt(localStorage.getItem('giftGameTime')) || 60;
+            
+            // Обновляем сообщение Гарфилда
+            updateWelcomeMessage();
+            
+            // Отображаем результаты
+            displayResults();
+            
+            // Создаём гирлянду
+            createTreeLights();
+            
+            // Создаём звёзды
+            createStars();
+            
+            // Создаём снежинки
+            createSnowflakes();
+        }
+        
+        // Обновление приветственного сообщения
+        function updateWelcomeMessage() {
+            const totalScore = quizScore + attentionScore + giftScore;
+            const totalMax = quizTotal + attentionTotal + giftTarget;
+            const percentage = Math.round((totalScore / totalMax) * 100);
+            
+            let message = '';
+            
+            if (percentage >= 90) {
+                message = `Дианочка, ты просто невероятна! Ты набрала ${percentage}% из всех возможных! Это феноменальный результат! Ты заслужила все подарки под ёлкой и особый новогодний сюрприз от Гарфилда!`;
+            } else if (percentage >= 70) {
+                message = `Дианочка, ты отлично справилась! Ты набрала ${percentage}% из всех возможных! Гарфилд очень гордится тобой и разрешает открыть все подарки под ёлкой!`;
+            } else if (percentage >= 50) {
+                message = `Дианочка, ты хорошо прошла все испытания! Ты набрала ${percentage}% из всех возможных. Гарфилд доволен твоими результатами и разрешает открыть подарки!`;
+            } else {
+                message = `Дианочка, ты прошла все испытания! Ты набрала ${percentage}% из всех возможных. Главное - ты старалась, и Гарфилд это ценит! Теперь можешь открыть подарки!`;
+            }
+            
+            welcomeMessage.innerHTML = message;
+        }
+        
+        // Отображение результатов
+        function displayResults() {
+            const results = [
+                {
+                    icon: '🧠',
+                    label: 'Новогодняя викторина',
+                    value: `${quizScore}/${quizTotal}`,
+                    color: '#3498db'
+                },
+                {
+                    icon: '👁️',
+                    label: 'Тест на внимательность',
+                    value: `${attentionScore}/${attentionTotal}`,
+                    color: '#9b59b6'
+                },
+                {
+                    icon: '🎁',
+                    label: 'Поймано подарков',
+                    value: `${giftScore}/${giftTarget}`,
+                    color: '#e74c3c'
+                },
+                {
+                    icon: '⏱️',
+                    label: 'Время в игре',
+                    value: `${giftTime} сек`,
+                    color: '#f1c40f'
+                }
+            ];
+            
+            resultsGrid.innerHTML = '';
+            
+            results.forEach(result => {
+                const resultItem = document.createElement('div');
+                resultItem.classList.add('result-item');
+                
+                resultItem.innerHTML = `
+                    <div class="result-icon" style="color: ${result.color}">${result.icon}</div>
+                    <div class="result-label">${result.label}</div>
+                    <div class="result-value">${result.value}</div>
+                `;
+                
+                resultsGrid.appendChild(resultItem);
+            });
+        }
+        
+        // Создание гирлянды на ёлке
+        function createTreeLights() {
+            treeLights.innerHTML = '';
+            
+            const colors = ['#e74c3c', '#3498db', '#f1c40f', '#2ecc71', '#9b59b6'];
+            
+            // Создаём 30 огоньков
+            for (let i = 0; i < 30; i++) {
+                const light = document.createElement('div');
+                light.classList.add('light');
+                
+                // Случайная позиция
+                const left = Math.random() * 90 + 5;
+                const top = Math.random() * 80 + 10;
+                
+                light.style.left = `${left}%`;
+                light.style.top = `${top}%`;
+                
+                // Случайный цвет
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                light.style.backgroundColor = color;
+                light.style.boxShadow = `0 0 10px ${color}`;
+                
+                // Случайная задержка анимации
+                const delay = Math.random() * 2;
+                light.style.animationDelay = `${delay}s`;
+                
+                treeLights.appendChild(light);
+            }
+        }
+        
+        // Создание звёзд
+        function createStars() {
+            stars.innerHTML = '';
+            
+            for (let i = 0; i < 20; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.innerHTML = '⭐';
+                
+                // Случайная позиция
+                const left = Math.random() * 90 + 5;
+                const top = Math.random() * 90 + 5;
+                
+                star.style.left = `${left}%`;
+                star.style.top = `${top}%`;
+                
+                // Случайный размер
+                const size = Math.random() * 1 + 0.8;
+                star.style.fontSize = `${size}rem`;
+                
+                // Случайная задержка анимации
+                const delay = Math.random() * 2;
+                star.style.animationDelay = `${delay}s`;
+                
+                stars.appendChild(star);
+            }
+        }
+        
+        // Создание снежинок
+        function createSnowflakes() {
+            for (let i = 0; i < 40; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                
+                const size = Math.random() * 6 + 3;
+                snowflake.style.width = `${size}px`;
+                snowflake.style.height = `${size}px`;
+                
+                snowflake.style.left = `${Math.random() * 100}%`;
+                snowflake.style.top = `${Math.random() * 100}%`;
+                
+                const opacity = Math.random() * 0.7 + 0.3;
+                snowflake.style.opacity = opacity.toString();
+                
+                const animationDuration = Math.random() * 10 + 10;
+                snowflake.style.animation = `fall ${animationDuration}s linear infinite`;
+                
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+        
+        // Открытие подарков
+        function openGifts() {
+            const gifts = document.querySelectorAll('.gift-box');
+            const giftContents = [
+                { icon: '🐱', message: 'Плюшевый Гарфилд!' },
+                { icon: '🍕', message: 'Бесконечная лазанья!' },
+                { icon: '👑', message: 'Корона победительницы!' },
+                { icon: '💝', message: 'Особый новогодний сюрприз!' }
+            ];
+            
+            let openedCount = 0;
+            
+            gifts.forEach((gift, index) => {
+                setTimeout(() => {
+                    // Анимация открытия подарка
+                    gift.classList.add('opened');
+                    
+                    // Показываем содержимое подарка
+                    setTimeout(() => {
+                        const content = document.createElement('div');
+                        content.classList.add('gift-content');
+                        content.innerHTML = giftContents[index].icon;
+                        content.style.left = `${gift.offsetLeft + 35}px`;
+                        content.style.top = `${gift.offsetTop}px`;
+                        
+                        gift.parentElement.appendChild(content);
+                        
+                        // Обновляем сообщение
+                        finalMessage.innerHTML = `
+                            <p>🎁 Открыт подарок ${index + 1}: ${giftContents[index].message}</p>
+                            ${openedCount === gifts.length - 1 ? 
+                                '<p style="margin-top: 15px; color: #f1c40f; font-weight: bold; font-size: 1.3rem;">🎉 ВСЕ ПОДАРКИ ОТКРЫТЫ! ДИАНОЧКА, ПОЗДРАВЛЯЕМ! 🎉</p>' : 
+                                '<p>Открывай следующий подарок!</p>'}
+                        `;
+                        
+                        // Удаляем содержимое через 2 секунды
+                        setTimeout(() => {
+                            content.remove();
+                        }, 2000);
+                        
+                        openedCount++;
+                        
+                        // Если открыты все подарки, запускаем конфетти
+                        if (openedCount === gifts.length) {
+                            setTimeout(() => {
+                                launchConfetti();
+                                // Показываем финальное сообщение
+                                finalMessage.innerHTML = `
+                                    <p style="color: #f1c40f; font-size: 1.4rem; font-weight: bold;">
+                                        <i class="fas fa-crown"></i> ДИАНОЧКА, ТЫ НЕВЕРОЯТНА!
+                                    </p>
+                                    <p style="margin-top: 15px;">
+                                        Ты открыла все подарки и прошла все испытания! Гарфилд гордится тобой и желает тебе счастливого Нового Года!
+                                    </p>
+                                    <p style="margin-top: 15px; font-style: italic;">
+                                        Пусть следующий год будет таким же волшебным, как это приключение! 🎄✨
+                                    </p>
+                                `;
+                                
+                                // Меняем текст кнопки
+                                openGiftsBtn.innerHTML = '<i class="fas fa-check"></i> ВСЕ ПОДАРКИ ОТКРЫТЫ!';
+                                openGiftsBtn.disabled = true;
+                                openGiftsBtn.style.opacity = '0.7';
+                                openGiftsBtn.style.cursor = 'default';
+                            }, 500);
+                        }
+                    }, 300);
+                }, index * 800); // Задержка между открытием подарков
+            });
+        }
+        
+        // Запуск конфетти
+        function launchConfetti() {
+            confettiContainer.style.display = 'block';
+            confettiContainer.innerHTML = '';
+            
+            const colors = ['#e74c3c', '#3498db', '#f1c40f', '#2ecc71', '#9b59b6', '#ffffff'];
+            
+            // Создаём 150 конфетти
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                // Случайная позиция
+                const left = Math.random() * 100;
+                confetti.style.left = `${left}%`;
+                
+                // Случайный цвет
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.backgroundColor = color;
+                
+                // Случайный размер
+                const size = Math.random() * 10 + 5;
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                
+                // Случайная форма
+                if (Math.random() > 0.5) {
+                    confetti.style.borderRadius = '50%';
+                } else {
+                    confetti.style.borderRadius = '0';
+                }
+                
+                // Случайная задержка
+                const delay = Math.random() * 2;
+                confetti.style.animationDelay = `${delay}s`;
+                
+                // Случайная продолжительность
+                const duration = Math.random() * 2 + 3;
+                confetti.style.animationDuration = `${duration}s`;
+                
+                confettiContainer.appendChild(confetti);
+            }
+            
+            // Скрываем конфетти через 5 секунд
+            setTimeout(() => {
+                confettiContainer.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Начать всё сначала
+        function restartAll() {
+            // Очищаем localStorage
+            localStorage.removeItem('quizScore');
+            localStorage.removeItem('quizTotal');
+            localStorage.removeItem('quizAnswers');
+            localStorage.removeItem('attentionTestScore');
+            localStorage.removeItem('attentionTestTotal');
+            localStorage.removeItem('giftGameScore');
+            localStorage.removeItem('giftGameTarget');
+            localStorage.removeItem('giftGameTime');
+            
+            // Возвращаемся на первую страницу
+            window.location.href = 'index.html';
+        }
+        
+        // Замена изображения Гарфилда при ошибке загрузки
+        function handleImageError() {
+            document.getElementById('garfieldImage').src = 'images/icon.png';
+        }
+        
+        // Инициализация
+        function init() {
+            loadAllResults();
+            
+            // Обработчики событий
+            openGiftsBtn.addEventListener('click', openGifts);
+            restartAllBtn.addEventListener('click', restartAll);
+            document.getElementById('garfieldImage').addEventListener('error', handleImageError);
+            
+            // Добавляем анимацию при наведении на подарки
+            document.querySelectorAll('.gift-box').forEach(gift => {
+                gift.addEventListener('click', () => {
+                    // Можно добавить индивидуальное открытие по клику
+                });
+            });
+        }
+        
+        // Запуск при загрузке страницы
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
